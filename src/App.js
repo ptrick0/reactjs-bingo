@@ -1,6 +1,6 @@
 import { React, Suspense } from 'react';
 import './App.css';
-import Panel from './components/panel';
+import Bingo from './components/bingo';
 import Loading from './components/loading';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Suspense fallback={<Loading />}>
 					<Routes>
-						<Route path="/" element={<Panel />} />
+						<Route path="/" element={<Bingo />} />
 					</Routes>
 				</Suspense>
     </Router>
