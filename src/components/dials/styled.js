@@ -19,8 +19,8 @@ const DialContent = styled.div`
     border-radius: 3px;
     font-size: 2em;
     background-color: #0e62be;
-    box-shadow: 2px 2px #0e4eaa;
-    color: white;
+    box-shadow: 2px 2px 0px 1.5px #0d4599;
+    color: white;    
 `;
 
 const Dial = styled.div`
@@ -28,10 +28,16 @@ const Dial = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: 0.2s ease-in-out;
 
     & + & {
         margin-left: 1em;
     }
+
+    &.changed {
+        animation: twinkle 0.3s ease-in-out 1; 
+    }
+
 `;
 
 export {

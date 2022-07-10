@@ -5,7 +5,7 @@ const Button = styled.button`
     align-items: center;
     justify-content: center;
     background-color: #0e62be;
-    box-shadow: 3px 3px #0e4eaa;
+    box-shadow: 2px 2px 0px 2px #0d4599;
     color: white;
     border: none;
     border-radius: 5px;
@@ -14,27 +14,27 @@ const Button = styled.button`
     transition: 0.2s ease-in-out;
     
     &.success {
-        background-color: #00bb2f;
-        box-shadow: 3px 3px #00a71b;
+        background-color: #00a82b;
+        box-shadow: 2px 2px 0px 2px #007d13;
         color: white;
     }
 
     &.danger {
-        background-color: #be0e12;
-        box-shadow: 3px 3px #aa0e00;
+        background-color: #bf151a;
+        box-shadow: 2px 2px 0px 2px #930b00;
         color: white;
     }
 
     &:hover {
         cursor: pointer;
-        background-color: #0e4eaa;
+        background-color: #0d4599;
 
         &.success {
-            background-color: #00a71b;
+            background-color: #007d13;
         }
 
         &.danger {
-            background-color: #aa0e00;
+            background-color: #930b00;
         }
     }
 

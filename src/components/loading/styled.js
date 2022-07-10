@@ -7,7 +7,7 @@ const LoadingWrapper = styled.div`
 `;
 
 const Spinner = styled.img`
-    
+    animation: rotate-image 3s linear 0s infinite;
 `;
 
 export {

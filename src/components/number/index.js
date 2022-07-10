@@ -2,9 +2,12 @@ import React, { Fragment } from "react";
 import * as S from './styled';
 
 const Number = (props) => {
+
+    const isLucky = props.isLucky;
+
     return (
         <Fragment>
-            <S.NumberWrapper className={props.className}>
+            <S.NumberWrapper className={ isLucky ? "lucky" : ""}>
                 {props.children}
             </S.NumberWrapper>
         </Fragment>

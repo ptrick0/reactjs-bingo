@@ -8,7 +8,7 @@ const Panel = (props) => {
     const renderNumbers = () => {
         return (
             numbers.map((number, i) => {
-                return <Number className={number.isLucky?"lucky":""}>{number.value}</Number>
+                return <Number key={`n-${i}`} isLucky={number.isLucky}>{number.value}</Number>
             })
         );
     };
