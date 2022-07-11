@@ -9,8 +9,7 @@ const Controls = (props) => {
     return (
         <S.ControlsWrapper>
             <Button className="success" onClick={() => handleClick("lucky")}>Lucky</Button>
-            <Button className="danger" onClick={() => handleClick("reset")}>Reset</Button>
-            <Button className="" onClick={() => handleClick("test")}>Test</Button>
+            <Button className="danger" onClick={() => handleClick("modal")}>Reset</Button>
         </S.ControlsWrapper>
     );
 };

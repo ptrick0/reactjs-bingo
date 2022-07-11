@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import Controls from "../controls";
 import Dials from "../dials";
+import Modal from "../modal";
 import Panel from "../panel";
 import * as S from './styled';
 
@@ -10,14 +11,15 @@ const Bingo = () => {
             return {value: index+1, isLucky: false}
         }),
         luckyCount: 0,
-        lastLucky: 0
+        lastLucky: 0,
+        modalOpen: false
     });
 
     const handleClick = (action) => {
         switch (action) {
             case "lucky":
                 var rand;
-                let newNumbers = [...bingoState.numbers];
+                var newNumbers = [...bingoState.numbers];
 
                 if (bingoState.luckyCount < 75) {
                     do {
@@ -35,24 +37,31 @@ const Bingo = () => {
                 }
                 
                 break;
-            case "reset":
-                if(window.confirm("Do you really want to reset ?")) {
-                    let newNumbers = [...bingoState.numbers].map((number, i) => {
-                        number.isLucky = false;
-                        return number;
-                    });
-
-                    setBingoState({
-                        ...bingoState,
-                        numbers: newNumbers,
-                        luckyCount: 0,
-                        lastLucky: 0
-                    })
-                }
-
+            case "modal":
+                setBingoState({
+                    ...bingoState,
+                    modalOpen: true
+                });
                 break;
-            case "test":
-                alert("test");
+            case "close":
+                setBingoState({
+                    ...bingoState,
+                    modalOpen: false
+                });
+                break;
+            case "reset":
+                var newNumbers = [...bingoState.numbers].map((number, i) => {
+                    number.isLucky = false;
+                    return number;
+                });
+
+                setBingoState({
+                    ...bingoState,
+                    numbers: newNumbers,
+                    luckyCount: 0,
+                    lastLucky: 0,
+                    modalOpen: false
+                });
                 break;
             default:
                 break;
@@ -61,6 +70,15 @@ const Bingo = () => {
 
     return (
         <S.BingoWrapper>
+            {bingoState.modalOpen ? 
+                (<Modal 
+                    title="Reset confirmation" 
+                    message="Do you really want to reset ?" 
+                    onConfirm={() => handleClick("reset")} 
+                    onClose={() => handleClick("close")}/>)
+            :
+                (<Fragment />)
+            }
             <S.BingoTitle>Bingo</S.BingoTitle>
             <S.BingoHeader>
                 <Controls handleClick={ handleClick }/>
