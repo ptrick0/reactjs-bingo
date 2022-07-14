@@ -3,17 +3,26 @@ import Controls from "../controls";
 import Dials from "../dials";
 import Modal from "../modal";
 import Panel from "../panel";
+import Button from "../button";
 import * as S from './styled';
+import { useNavigate } from "react-router-dom";
 
 const Bingo = () => {
+    const navigate = useNavigate();
+
     const [ bingoState, setBingoState ] = useState({
         numbers: [...Array(75).keys()].map((value, index) => {
             return {value: index+1, isLucky: false}
         }),
         luckyCount: 0,
         lastLucky: 0,
-        modalOpen: false
+        resetModalOpen: false,
+        backModalOpen: false
     });
+
+    const hasModalOpen = () => {
+        return bingoState.backModalOpen || bingoState.resetModalOpen;
+    };
 
     const handleClick = (action) => {
         switch (action) {
@@ -37,16 +46,27 @@ const Bingo = () => {
                 }
                 
                 break;
-            case "modal":
-                setBingoState({
-                    ...bingoState,
-                    modalOpen: true
-                });
+            case "reset-modal":
+                if (!hasModalOpen()) {
+                    setBingoState({
+                        ...bingoState,
+                        resetModalOpen: true
+                    });
+                }
+                break;
+            case "back-modal":
+                if (!hasModalOpen()) {
+                    setBingoState({
+                        ...bingoState,
+                        backModalOpen: true
+                    });
+                }
                 break;
             case "close":
                 setBingoState({
                     ...bingoState,
-                    modalOpen: false
+                    backModalOpen: false,
+                    resetModalOpen: false,
                 });
                 break;
             case "reset":
@@ -60,7 +80,7 @@ const Bingo = () => {
                     numbers: newNumbers,
                     luckyCount: 0,
                     lastLucky: 0,
-                    modalOpen: false
+                    resetModalOpen: false
                 });
                 break;
             default:
@@ -70,7 +90,16 @@ const Bingo = () => {
 
     return (
         <S.BingoWrapper>
-            {bingoState.modalOpen ? 
+            {bingoState.backModalOpen ? 
+                (<Modal 
+                    title="Back confirmation" 
+                    message="Do you really want back to menu ?" 
+                    onConfirm={() => navigate("/")} 
+                    onClose={() => handleClick("close")}/>)
+            :
+                (<Fragment />)
+            }
+            {bingoState.resetModalOpen ? 
                 (<Modal 
                     title="Reset confirmation" 
                     message="Do you really want to reset ?" 
@@ -79,10 +108,13 @@ const Bingo = () => {
             :
                 (<Fragment />)
             }
-            <S.BingoTitle>Bingo</S.BingoTitle>
             <S.BingoHeader>
-                <Controls handleClick={ handleClick }/>
+                <Button className="" onClick={() => handleClick("back-modal")}>Back to Menu</Button>
                 <Dials luckyCount={ bingoState.luckyCount } lastLucky={ bingoState.lastLucky }/>
+                <Controls>
+                    <Button className="success" onClick={() => handleClick("lucky")}>Lucky</Button>
+                    <Button className="danger" onClick={() => handleClick("reset-modal")}>Reset</Button>
+                </Controls>
             </S.BingoHeader>
             <Panel numbers={ bingoState.numbers }/>
         </S.BingoWrapper>

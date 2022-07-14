@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ModalWrapper = styled.div`
     width: 500px;
+    height: 200px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -11,6 +12,7 @@ const ModalWrapper = styled.div`
     border-radius: 16px;
     position: fixed;
     z-index: 1;
+    animation: fade-in 0.3s linear 0s 1;
     
     background-color: rgba(230, 230, 230);
     box-shadow: 2px 2px 0px 2px #555555;

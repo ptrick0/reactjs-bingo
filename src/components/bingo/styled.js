@@ -14,8 +14,9 @@ const BingoWrapper = styled.div`
 `;
 
 const BingoHeader = styled.div`
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     
     & > div:not(:last-child) {
